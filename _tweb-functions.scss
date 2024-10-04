@@ -1,0 +1,51 @@
+/**
+ * Function to convert a size value to rem units
+ * Accepts a sizeValue parameter, which defaults to 16 (px).
+ */
+@function rem($sizeValue: 16) {
+	@if (type-of($sizeValue) == 'number') {
+		@return calc($sizeValue / 16) + rem;
+	}
+	@else {
+		@return #{$sizeValue};
+	}
+}
+
+
+/**
+ * Function to calculate a viewport width (vw)-based value
+ *
+ * Takes in a minimum size ($min), maximum size ($max), and optional parameters:
+ * - $use-var: If set to 1, uses a CSS custom property (--tweb--vw) for dynamic resizing; defaults to 0.
+ * - $max-v: The maximum viewport width used for scaling, defaults to 1200px.
+ * Returns a clamped value that scales between rem($min) and rem($max) based on the viewport width.
+ */
+@function vw($min, $max, $use-var: 0, $max-v: 1200) {
+	$vw-unit: if($use-var == 1, var(--tweb--vw, 100vw), 100vw);
+
+	@return clamp(
+		#{rem($min)},
+		#{calc($max / $max-v * $vw-unit)},
+		#{rem($max)}
+	);
+}
+
+
+/**
+ * Function to calculate a fluid typography value using viewport width (vw)
+ *
+ * Takes in minimum ($min) and maximum ($max) sizes, and optional parameters:
+ * - $min-v: The minimum viewport width for scaling, defaults to 768px.
+ * - $max-v: The maximum viewport width for scaling, defaults to 1200px.
+ * - $use-var: If set to 1, uses a CSS custom property (--tweb--vw) for dynamic resizing; defaults to 0.
+ * Returns a clamped value that smoothly scales between rem($min) and rem($max) based on the viewport width.
+ */
+@function vwft($min, $max, $min-v: 768, $max-v: 1200, $use-var: 0) {
+	$vw-unit: if($use-var == 1, var(--tweb--vw, 100vw), 100vw);
+
+	@return clamp(
+		#{rem($min)},
+		calc((($max - $min) / ($max-v - $min-v)) * ($vw-unit - #{calc($min-v / 16)}rem) + #{rem($min)}),
+		#{rem($max)}
+	);
+}
