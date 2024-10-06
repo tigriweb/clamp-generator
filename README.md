@@ -2,6 +2,8 @@
 
 Our Clamp Generator is available [here](https://clamp-generator.tigriweb.dev/ "Clamp Generator").
 
+Additionally, you can check out our presentation from WordCamp Gdynia 2024 at the [following link](https://drive.google.com/file/d/196ubd7W_AP4hfMI2cllFTCwwngX_ZY3f/view/ "WordCamp Gdynia 2024 | Maciej Lech | Clamp(): Jak uprościć CSS i zyskać więcej czasu").
+
 
 ## `_tweb-functions.scss`
 
